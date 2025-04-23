@@ -1,12 +1,11 @@
 # project-6-Energy-prediction-ML
-Absolutely! Here's a **professional, complete, and polished `README.md`** for your GitHub project:
 
 ---
 
 ```markdown
 # 🔋 Seattle Building Energy & Emissions Prediction
 
-This machine learning project predicts **site energy use** and **greenhouse gas (GHG) emissions** for **non-residential buildings** in Seattle. The goal is to support Seattle’s **2050 carbon neutrality plan** by helping identify high-emission buildings using data-driven methods. The final model is deployed as a **REST API** using **BentoML** and **Google Cloud Run**.
+This machine learning project predicts **site energy use** and **greenhouse gas (GHG) emissions** for **non-residential buildings** in Seattle. The goal is to support Seattle’s **2050 carbon neutrality plan** by identifying high-emission buildings using data-driven methods. The final model is deployed as a **REST API** using **BentoML** and **Google Cloud Run**.
 
 ---
 
@@ -82,8 +81,7 @@ This project includes a complete deployment pipeline:
 4. **Deployed** to the cloud using **Google Cloud Run**
 
 🔗 **Live Demo (API endpoint)**:  
-
-https://building-energy-api-752730965616.europe-west1.run.app
+[https://building-energy-api-752730965616.europe-west1.run.app](https://building-energy-api-752730965616.europe-west1.run.app)
 
 📘 Swagger UI: `http://localhost:3000` (when served locally)
 
@@ -115,16 +113,42 @@ https://building-energy-api-752730965616.europe-west1.run.app
 {
   "PropertyGFATotal": "twenty five thousand",
   "ENERGYSTARScore": "high",
+  "NumberofFloors": "three",
   ...
 }
 ```
 
+BentoML returns `400 Bad Request` with clear validation error messages.
+
+---
+
+## 📁 Project Structure
+
+```
+seattle-building-energy-prediction/
+├── notebooks/              # Jupyter Notebooks
+│   └── modeling.ipynb
+│
+├── api/                    # API codebase
+│   ├── service.py
+│   └── bentofile.yaml
+│
+├── reports/                # Presentation slides, charts
+│   └── slides.pdf
+│
+├── models/                 # Saved models via BentoML
+├── data/                   # Cleaned dataset sample (if public)
+├── requirements.txt        # Dependencies
+├── README.md
+└── .gitignore
+```
 
 ---
 
 ## 📊 Key Insights
 
 - Larger buildings → higher energy consumption and emissions.
+- Property types like Hospitals and Data Centers emit the most.
 - ENERGYSTARScore shows strong negative correlation with both targets.
 - Removing ENERGYSTARScore caused ~14% increase in model error.
 - Feature engineering (ratios + age) improved model performance.
@@ -132,6 +156,13 @@ https://building-energy-api-752730965616.europe-west1.run.app
 
 ---
 
+## 📦 Installation
+
+```bash
+git clone https://github.com/your-username/seattle-building-energy-prediction.git
+cd seattle-building-energy-prediction
+pip install -r requirements.txt
+```
 
 To run the API locally:
 ```bash
@@ -143,8 +174,8 @@ python api/service.py
 
 ## 📝 Author
 
-- 👨‍💻 Motasem
-- 🌐   
+- 👨‍💻 Motasem 
+- 🌐 
 - 📧 motasemmkamz@gmail.com
 
 ---
@@ -154,5 +185,8 @@ python api/service.py
 MIT License. Free to use, modify, and distribute.
 
 ---
-
 ```
+
+---
+
+Would you also like me to generate the `requirements.txt` and `bentofile.yaml` templates so you can push those to your repo too?
