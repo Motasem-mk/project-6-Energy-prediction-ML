@@ -2,7 +2,7 @@
 
 ---
 
-```markdown
+
 # 🔋 Seattle Building Energy & Emissions Prediction
 
 This machine learning project predicts **site energy use** and **greenhouse gas (GHG) emissions** for **non-residential buildings** in Seattle. The goal is to support Seattle’s **2050 carbon neutrality plan** by identifying high-emission buildings using data-driven methods. The final model is deployed as a **REST API** using **BentoML** and **Google Cloud Run**.
