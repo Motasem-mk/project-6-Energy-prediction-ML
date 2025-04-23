@@ -135,14 +135,6 @@ BentoML returns `400 Bad Request` with clear validation error messages.
 
 ---
 
-## 📦 Installation
-
-```bash
-git clone https://github.com/your-username/seattle-building-energy-prediction.git
-cd seattle-building-energy-prediction
-pip install -r requirements.txt
-```
-
 To run the API locally:
 ```bash
 python api/service.py
