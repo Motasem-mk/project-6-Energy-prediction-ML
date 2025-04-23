@@ -122,27 +122,6 @@ BentoML returns `400 Bad Request` with clear validation error messages.
 
 ---
 
-## 📁 Project Structure
-
-```
-seattle-building-energy-prediction/
-├── notebooks/              # Jupyter Notebooks
-│   └── modeling.ipynb
-│
-├── api/                    # API codebase
-│   ├── service.py
-│   └── bentofile.yaml
-│
-├── reports/                # Presentation slides, charts
-│   └── slides.pdf
-│
-├── models/                 # Saved models via BentoML
-├── data/                   # Cleaned dataset sample (if public)
-├── requirements.txt        # Dependencies
-├── README.md
-└── .gitignore
-```
-
 ---
 
 ## 📊 Key Insights
@@ -186,7 +165,3 @@ MIT License. Free to use, modify, and distribute.
 
 ---
 ```
-
----
-
-Would you also like me to generate the `requirements.txt` and `bentofile.yaml` templates so you can push those to your repo too?
