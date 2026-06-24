@@ -1,0 +1,20 @@
+# Specify the entrypoint to the BentoML service:
+# Format is "filename:service_variable"
+service: "service:svc" # (entry point)
+
+# Include only the necessary files in the final build:
+# This keeps the Bento lightweight and portable.
+include:
+  - service.py            # Main BentoML API file
+  - save_models.py        # Script used to save models (optional but useful if needed)
+  - requirements.txt      # Optional: track your Python dependencies
+
+# Define the required Python packages for the Bento service.
+# These will be installed inside the Bento (and Docker container).
+python:
+  packages:
+    - scikit-learn        # ML model loading and prediction
+    - pandas              # DataFrame for input formatting
+    - numpy               # Numeric operations
+    - pydantic            # Input validation
+    - bentoml             # Required to serve and run the API
