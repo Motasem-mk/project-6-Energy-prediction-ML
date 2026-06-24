@@ -11,7 +11,7 @@ The project uses the **Seattle 2016 Building Energy Benchmarking dataset** and f
 * `SiteEnergyUse(kBtu)` — total energy consumption;
 * `TotalGHGEmissions` — greenhouse gas emissions.
 
-The project also evaluates whether `ENERGYSTARScore` is useful for prediction and whether the city should continue collecting it.
+The project also evaluates whether `ENERGYSTARScore` is useful for prediction and whether the City of Seattle should continue collecting it.
 
 ---
 
@@ -19,7 +19,7 @@ The project also evaluates whether `ENERGYSTARScore` is useful for prediction an
 
 The City of Seattle aims to become carbon neutral by 2050.
 
-Energy audits are expensive, so the goal is to build machine learning models that can estimate energy consumption and CO₂ emissions using building characteristics such as:
+Energy audits are expensive. The goal of this project is therefore to build machine learning models that can estimate energy consumption and CO₂ emissions using building characteristics such as:
 
 * building size;
 * building use type;
@@ -36,20 +36,24 @@ The final model is exposed through an API prototype using BentoML, allowing user
 ## Repository Structure
 
 ```text
-.
+project-6-Energy-prediction-ML/
 ├── README.md
-├── 1_Analysis_Cleaning_EDA_21_04_2025.ipynb
-├── 2_Modeling1_SiteEnergyUse(kBtu)_21_04_2025.ipynb
-├── 3_Modeling2_TotalGHGEmissions_21_04_2025.ipynb
-├── 4_Modeling3_TotalGHGEmissions-WitouthEnergyScore_21_04_2025.ipynb
-├── 2016_Building_Energy_Benchmarking.csv
-├── building_data_modelling.csv
-├── save_models.py
-├── service.py
-├── bentofile.yaml
 ├── requirements.txt
+├── notebooks/
+│   ├── 1_Analysis_Cleaning_EDA_21_04_2025.ipynb
+│   ├── 2_Modeling1_SiteEnergyUse(kBtu)_21_04_2025.ipynb
+│   ├── 3_Modeling2_TotalGHGEmissions_21_04_2025.ipynb
+│   └── 4_Modeling3_TotalGHGEmissions-WitouthEnergyScore_21_04_2025.ipynb
+├── data/
+│   ├── 2016_Building_Energy_Benchmarking.csv
+│   └── building_data_modelling.csv
+├── api/
+│   ├── service.py
+│   └── save_models.py
+├── deployment/
+│   └── bentofile.yaml
 └── presentation/
-    └── Abualqumboz_5_project_6_Energy_Prediction.pptx
+    └── Abualqumboz_5_project 6- Prédisez la consommation d'énergie des bâtiments_21_04_2025.pptx
 ```
 
 ---
@@ -113,8 +117,6 @@ The final selected approach uses:
 * Gradient Boosting Regressor;
 * hyperparameter tuning with GridSearchCV.
 
-The final model achieved strong performance, with the tuned Gradient Boosting model giving the best results.
-
 ---
 
 ### 4. GHG Emissions Modeling
@@ -125,7 +127,7 @@ The third notebook focuses on predicting:
 TotalGHGEmissions
 ```
 
-The modeling approach is similar:
+The modeling approach includes:
 
 * feature engineering;
 * log transformation of the target;
@@ -134,24 +136,24 @@ The modeling approach is similar:
 * hyperparameter tuning;
 * top feature selection.
 
-The project also tests the impact of removing `ENERGYSTARScore` from the model.
+A fourth notebook tests the impact of removing `ENERGYSTARScore` from the model.
 
 The results show that removing `ENERGYSTARScore` reduces model performance, which supports the recommendation that Seattle should continue collecting and using this variable.
 
 ---
 
-### 5. API Deployment with BentoML
+## API Deployment with BentoML
 
 The second part of the project exposes the trained model through an API using BentoML.
 
 Main files:
 
-| File               | Description                                             |
-| ------------------ | ------------------------------------------------------- |
-| `save_models.py`   | Saves the trained models into the BentoML model store   |
-| `service.py`       | Defines the BentoML API service and prediction endpoint |
-| `bentofile.yaml`   | Defines the BentoML build and deployment configuration  |
-| `requirements.txt` | Lists the required Python dependencies                  |
+| File                        | Description                                             |
+| --------------------------- | ------------------------------------------------------- |
+| `api/save_models.py`        | Saves the trained models into the BentoML model store   |
+| `api/service.py`            | Defines the BentoML API service and prediction endpoint |
+| `deployment/bentofile.yaml` | Defines the BentoML build and deployment configuration  |
+| `requirements.txt`          | Lists the required Python dependencies                  |
 
 The API accepts building characteristics as input and returns predictions for:
 
@@ -169,7 +171,8 @@ This prevents users from sending incoherent values, such as:
 * text values instead of numeric values;
 * invalid ENERGY STAR scores;
 * invalid building age;
-* invalid number of floors.
+* invalid number of floors;
+* invalid ratio values.
 
 If invalid data is sent, the API rejects the request with a clear validation error.
 
@@ -183,16 +186,16 @@ If invalid data is sent, the API rejects the request with a clear validation err
 pip install -r requirements.txt
 ```
 
-### 2. Save the models
+### 2. Save the models into BentoML
 
 ```bash
-python save_models.py
+python api/save_models.py
 ```
 
 ### 3. Serve the API locally
 
 ```bash
-bentoml serve service:svc
+bentoml serve api.service:svc
 ```
 
 ### 4. Open Swagger UI
@@ -236,13 +239,13 @@ Swagger UI can be used to test the prediction endpoint directly from the browser
 
 ## BentoML Build and Docker Containerization
 
-The Bento service can be built with:
+The Bento service can be built using the BentoML configuration file:
 
 ```bash
-bentoml build
+bentoml build -f deployment/bentofile.yaml
 ```
 
-Then containerized with:
+Then the Bento can be containerized with Docker:
 
 ```bash
 bentoml containerize building_energy_service:<bento_tag>
@@ -348,8 +351,16 @@ This repository contains:
 
 ---
 
+## Notes
+
+The project was deployed and tested during the project work. The cloud endpoint may no longer be active to avoid unnecessary cloud costs.
+
+If the trained model files are not stored in the repository, the notebooks must be run first to regenerate the models before executing `api/save_models.py`.
+
+---
+
 ## Author
 
 Motasem Abualqumboz
 
-Data Engineer 
+Data Engineer
